@@ -13,7 +13,7 @@ float lastO2 = 0.0;
 
 // --- Pi Network & Sensor Config ---
 const char* PI_SSID = "GasMonitor";
-const char* PI_PASS = "gasmonitor123";
+const char* PI_PASS = "set yours here";
 const char* PI_HOST = "192.168.50.1";
 const int   PI_PORT = 5000;
 char sensorID[32]   = "sensor1";
