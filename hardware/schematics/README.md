@@ -11,6 +11,8 @@ Wiring schematics for both sensor variants.
 
 ## CO₂-only — Full Connection Reference
 
+<img src="co2_schematic.png" width="400">
+
 ### Power
 
 | From | To | Notes |
@@ -71,6 +73,9 @@ Wiring schematics for both sensor variants.
 > **Note:** Do not use the K30's RST pin as the HV reference for the level shifter. Connect HV directly to the VBUS rail.
 
 ## CO₂ + O₂ — Additional Connections
+
+<img src="co2_o2_schematic.png" width="400">
+
 
 All connections above apply, plus:
 

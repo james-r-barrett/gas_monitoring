@@ -1,11 +1,11 @@
 # Assembly Guide
 
-This guide details the physical assembly and wiring of the environmental gas monitor. Please ensure all 3D-printed parts are clean and free of support material before beginning. 
+This guide details the physical assembly and wiring of the gas monitor. Please ensure all 3D-printed parts are clean and free of support material before beginning. 
 
 This guide covers both variants. Steps unique to the CO₂ + O₂ variant are marked **[CO₂+O₂ only]**.
 
-!!! note "Before You Start"
-    Read through the complete guide before beginning. Have the [BOM](../../hardware/bom/) and [schematic](../../hardware/schematics/) open alongside this guide.---
+> **Before You Start:**  
+> Read through the complete guide before beginning. Have the [BOM](../../hardware/bom/) and [schematic](../../hardware/schematics/) open alongside this guide.
 
 ## Materials & Prep
 
@@ -15,11 +15,11 @@ This guide covers both variants. Steps unique to the CO₂ + O₂ variant are ma
 * Wire strippers/cutters
 * M2 x 8mm screws (x4)
 * Small Phillips head screwdriver
-* Small flathead screwdriver (for O₂ sensor I²C dial)
 
 **Wire Preparation:**
 
-Cut and strip the following lengths of wire (tin the tips for easier soldering):
+Cut, strip and tin the following lengths of wire:
+
 * **8.0 cm (x3):** For K30 GND, PWR, and TXD.
 * **5.5 cm (x1):** For K30 RXD.
 * **1.5 cm (x2):** For Logic Shifter LV-side data lines.
@@ -27,19 +27,19 @@ Cut and strip the following lengths of wire (tin the tips for easier soldering):
 * **~2.0 cm (x1):** For Logic Shifter HV power line.
 * **[CO₂+O₂ only]:** Four standard Dupont jumper wires for the SEN0322 (usually included with the connector on the device).
 
-## Phase 1: Print the Enclosure
+## Phase 1: Print enclosure
  
 Print the plate, fascia and base from the files in `hardware/3d-print/stl/`. Use the settings in the [3D print README](../../hardware/3d-print/).
 
 - Ensure to remove all of the support material from parts.
-- **[CO₂+O₂ only]** there are some difficult to remove supports in the channel of the fascia wherer the SEN0322 cables are routed.
+- **[CO₂+O₂ only]** there are some difficult to remove supports in the channel of the fascia where the SEN0322 cables are routed. I find a scalpel works well for this.
 
  
 **[CO₂+O₂ only]** Use the `co2_o2/` STL files, which includes the SEN0322 sensor port.
 
-##  Phase 2: Soldering & Component Prep
+##  Phase 2: Soldering & wiring
 
-*(Please refer to the included schematics for visual pinout confirmation. We recommend color-coding your wires: Red for 5V, Black for GND, and distinct colors for data lines).*
+*(Please refer to the included schematics for visual pinout confirmation. It is recommend to color-code your wires: Red for 5V, Black for GND, and distinct colors for data lines).*
 
 ### 1. Wire the K30 Sensor
 
@@ -57,7 +57,7 @@ Print the plate, fascia and base from the files in `hardware/3d-print/stl/`. Use
 
 <img src="images/logic_shifter_wiring.jpeg" alt="Logic Shifter Wiring" width="300">
 
-### 3. Wire the ESP32-S3 (Main Brain)
+### 3. Wire the ESP32-S3
 Now, connect everything back to the ESP32 microcontroller:
 
 1. **Power:** Solder the K30 **PWR** wire to the ESP32 **VBUS (5V)** pin.
@@ -75,21 +75,26 @@ The logic shifter needs reference voltages to know how to translate the signals.
 
 <img src="images/logic_power_wiring.jpeg" alt="Logic Shifter Power Wiring" width="300">
 
-### 5. [CO₂+O₂ only] Prepare the SEN0322 O₂ Sensor
+> **NOTE:**  
+> This is a bodge, two wires share the same pad twice in this design. To get round this I solder a tinned piece of wire direcetly into the pad, then intertwine the two connecting wires (K30 PWR and HV PWR) and solder them to the exposed wire on the ESP32.
+
+
+### 5. **[CO₂+O₂ only]** Prepare the SEN0322 O₂ Sensor
 The SEN0322 comes ready to use but requires configuration:
 
-1. Set the I²C address dial to **position 3** (address `0x73`) to avoid conflicting with the touchscreen controller. The dial is on the top face of the board; use a small flathead screwdriver.
+1. Set the I²C address dial to **position 3** (address `0x73`) to avoid conflicting with the touchscreen controller. The dial is on the top face of the board; use a small flathead screwdriver. This is the default config on the sensor.
 2. Connect the four wires:
-   * **VCC** → ESP32 **3V3 (3.3V)**
-   * **GND** → Common ground.
-   * **SDA** → ESP32 **GPIO42**.
-   * **SCL** → ESP32 **GPIO41**.
+
+    * **GND** → Common ground.
+    * **VCC** → ESP32 **3V3 (3.3V)**
+    * **SDA** → ESP32 **GPIO42**.
+    * **SCL** → ESP32 **GPIO41**.
 
 <img src="images/o2_wiring.jpeg" alt="Oxygen Sensor Wiring" width="300">
 
 ---
 
-## Phase 3: Bench Test Before Assembly
+## Phase 3: Bench test
 
 Before fitting anything into the enclosure, do a bench test with all components loose:
 
@@ -111,30 +116,33 @@ Check the serial monitor in Arduino IDE (115200 baud) for any error messages. Co
 
 ---
 
-##  Phase 4: Physical Enclosure Assembly
+##  Phase 4: Physical assembly
 
 ### 1. Mount the ESP32 Fascia
 
 * Carefully slide the ESP32-S3 screen-first through the slot in the 3D-printed **Fascia** part.
 * Gently route and line up the attached cables so they point toward the back.
-* **[CO₂+O₂ only]** - pass the SEN0322 connector through the slot in the fascia into the right hand side.
+* **[CO₂+O₂ only]** Pass the SEN0322 connector through the slot in the fascia into the right hand side.
 
 <img src="images/sen0322_assembly.jpeg" alt="Oxygen Sensor Assembly" width="300">
 
-### 2a. [CO₂+O₂ only]: Mount the oxygen sensor on the plate
+### 2a. **[CO₂+O₂ only]**: Mount the oxygen sensor on the plate
 
 * Push the included hexagonal standoffs into the cutouts on the plate.
-  * Depending on the tolerances of your print, you may need to shave down the hexagonal edges end of the standoffs so that they can be push fit into the plate.
 * Use the included fixings to attach the sensor to the plate, ensuring the calibration button aligns with the cutout in the plate.
 
 <img src="images/oxygen_plate_assembly.jpg" alt="Oxygen Plate Assembly" width="300">
+
+> **NOTE:**  
+> Depending on the tolerances of your print, you may need to shave down (using a sharp blade) the hexagonal edges on end of each of the standoffs so that they can be push fit into the plate.
+
 
 ### 2. Secure the Core Plates
 
 * **[CO₂+O₂ only]** connect the SEN0322 connector to the sensor.
 * Offer up the **Plate** part to the back of the Fascia.
 * Line up the holes for the M2 screws so they pass through the Fascia, the ESP32 mounting holes, and into the Plate.
-* Secure the assembly using the **M2x8mm screws**. Do not overtighten, as this can crack the plastic or the ESP32 PCB.
+* Secure the assembly using the four **M2x8mm screws**. Do not overtighten, as this can crack the plastic or the ESP32 PCB.
 
 <img src="images/plate_assembly.jpeg" alt="Plate Assembly" width="300">
 

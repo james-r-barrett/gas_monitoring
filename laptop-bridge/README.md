@@ -2,7 +2,8 @@
 
 Python scripts for reading USB-connected gas analysers on a Windows or Linux laptop and pushing their data to the Raspberry Pi hub. This is an optional component — only needed if you have analysers connected via USB rather than the ESP32-based sensor units.
 
-In this lab the laptop monitors two mixing bottle supplies:
+In our lab the laptop monitors two mixing bottle supplies:
+
 - **Minir-5** (orange bottle) — 1–5% CO₂ mix, COM3 / `/dev/ttyMINIR`
 - **K30 1%** (clear bottle) — ambient/low CO₂ supply, COM4 / `/dev/ttyK30`
 

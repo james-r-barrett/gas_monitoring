@@ -24,6 +24,7 @@ The Raspberry Pi acts as the central hub for the sensor network. It:
 Flash **Raspberry Pi OS Lite (64-bit)** using [Raspberry Pi Imager](https://www.raspberrypi.com/software/).
 
 In the Imager settings before flashing:
+
 - Hostname: `gasmonitor.local`
 - Enable SSH
 - Set username and password
@@ -43,6 +44,26 @@ sudo apt update && sudo apt upgrade -y
 ## WiFi Access Point Setup
 
 The Pi broadcasts `GasMonitor` on its wireless interface while using ethernet for university network connectivity.
+
+> ⚠️ **For most university networks it is not permitted to operate the Pi as an access point to the university. IPv4 forwarding must be disabled.**
+
+### Disable IPv4 forwarding
+Disable immediately:
+```bash
+sudo sysctl -w net.ipv4.ip_forward=0
+```
+Make persistent:
+```bash
+sudo nano /etc/sysctl.conf
+```
+Add:
+```
+net.ipv4.ip_forward=0
+```
+Apply:
+```
+sudo sysctl -p
+```
 
 ### Install packages
 ```bash
@@ -117,6 +138,7 @@ sudo systemctl enable --now influxdb
 ```
 
 Open `http://192.168.50.1:8086` in a browser connected to `GasMonitor` WiFi and complete the setup wizard:
+
 - Organisation: `lab`
 - Bucket: `sensors`
 - Generate an **All Access API token** and save it — you'll need it below
@@ -194,6 +216,7 @@ sudo systemctl enable --now grafana-server
 Access local Grafana at `http://192.168.50.1:3000` (default login: `admin` / `admin`).
 
 Add InfluxDB as a data source:
+
 - Type: **InfluxDB**
 - Query language: **Flux**
 - URL: `http://localhost:8086`

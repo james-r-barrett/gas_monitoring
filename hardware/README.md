@@ -40,6 +40,7 @@ A quality USB-C supply rated at ≥2A is recommended. Cheap supplies cause inter
 ## I²C Bus
 
 The I²C bus (SDA GPIO42, SCL GPIO41) is shared between:
+
 - AXS5106L touch controller (address 0x63)
 - SEN0322 O₂ sensor (address 0x73, set by dial switch position 3) — CO₂+O₂ variant only
 

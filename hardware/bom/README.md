@@ -17,10 +17,10 @@ Two BOMs are provided, one for each sensor variant.
 
 | Supplier                                    | Good for |
 |---------------------------------------------|---|
-| [The Pi Hut](https://https://thepihut.com/) | ESP32 boards, level shifters, general electronics |
+| [The Pi Hut](https://thepihut.com/) | ESP32 boards, level shifters, general electronics |
 | [RS Components](https://uk.rs-online.com)   | MOSFETs, diodes, passive components |
 | [Farnell](https://uk.farnell.com)           | MOSFETs, diodes, passive components |
 | [Mouser](https://mouser.com)                | DFRobot SEN0322, sensor modules |
-| [DigiKey](https://https://www.digikey.co.uk/)             | SenseAir K30 |
+| [DigiKey](https://www.digikey.co.uk/)             | SenseAir K30 |
 | [Waveshare](https://waveshare.com)          | ESP32-S3 dev kit |
 | AliExpress                                  | Budget duplicates of most components (longer lead times) |
