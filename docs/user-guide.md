@@ -30,6 +30,7 @@ Windows/Linux laptop ──►   (GasMonitor WiFi)
 ```
 
 **Each ESP32 sensor unit:**
+
 - Measures CO₂ every 1–60 seconds (configurable)
 - Optionally measures O₂ (combined units only)
 - Displays live readings on a 1.47" touchscreen
@@ -38,12 +39,14 @@ Windows/Linux laptop ──►   (GasMonitor WiFi)
 - Pushes data to the Raspberry Pi for central monitoring
 
 **The Raspberry Pi hub:**
+
 - Broadcasts the `GasMonitor` WiFi network
 - Receives data from all sensors
 - Forwards to Grafana Cloud (14-day retention)
 - Provides automatic time sync to sensors on connection
 
 **The laptop (mixing bottle monitors only):**
+
 - Reads the Minir-5 (orange bottle, 1–5% CO₂) and K30 1% (clear bottle, ambient CO₂) via USB
 - Pushes readings to the Pi via GasMonitor WiFi
 - Displays the Grafana dashboard full-screen for room-level monitoring
@@ -57,17 +60,20 @@ Windows/Linux laptop ──►   (GasMonitor WiFi)
 **In the growth room:** The laptop displays the dashboard full-screen at all times. No login required.
 
 **From your own device:**
+
 - Open the dashboard URL (ask the lab manager for the link)
 - Must be on the university network, university WiFi, or VPN
 
 **As a home screen app (recommended):**
 
 *Chrome (desktop or Android):*
+
 1. Open the dashboard URL in Chrome
 2. Click the three-dot menu → **Cast, save and share** → **Install as app**
 3. Click **Install** — the dashboard appears as an app icon
 
 *Safari (iPhone / iPad):*
+
 1. Open the dashboard URL in Safari
 2. Tap the **Share** button (square with arrow)
 3. Tap **Add to Home Screen** → **Add**
@@ -110,6 +116,7 @@ Each sensor has its own web interface, accessible by connecting to its WiFi hots
 ### Reading view
 
 The main page shows:
+
 - Live CO₂ reading in ppm with a trend arrow (▴ rising / ▾ falling / · stable)
 - Live O₂ reading in % with trend arrow (combined units only)
 - Last calibration date and type
@@ -159,6 +166,7 @@ TIME SYNC REQUIRED
 ```
 
 To sync time:
+
 1. Connect to the sensor's own WiFi hotspot
 2. Open `192.168.4.1` in a browser
 3. Time syncs automatically from your device — the splash screen clears
@@ -172,6 +180,7 @@ To sync time:
 ### CO₂ sensor (K30) — when to calibrate
 
 Calibrate the K30 if:
+
 - Readings appear consistently offset from expected values
 - The sensor has been stored for a long period
 - As part of routine quality control
@@ -183,10 +192,12 @@ Calibrate the K30 if:
 The most reliable method. Expose the sensor to a gas containing 0 ppm CO₂ and calibrate to zero.
 
 **Suitable gas sources available in the growth room:**
+
 - Pure nitrogen (N₂)
 - 21% O₂ / 79% N₂ (0 ppm CO₂) gas mix plumbed into the growth room
 
 **Procedure:**
+
 1. Connect the sensor to N₂ or the zero gas mix
 2. Wait for the reading to stabilise — at least 2–3 minutes
 3. Connect to the sensor's web interface and click **Calibrate → 0 ppm**
