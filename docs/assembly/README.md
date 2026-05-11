@@ -7,7 +7,7 @@ This guide covers both variants. Steps unique to the CO₂ + O₂ variant are ma
 > **Before You Start:** Read through the complete guide before beginning. Have the [BOM](../../hardware/bom/) and [schematic](../../hardware/schematics/) open alongside this guide.
 ---
 
-## 🛠 Materials & Prep
+## Materials & Prep
 
 **Required Tools:**
 * Soldering iron & solder (fine tip recommended)
@@ -27,7 +27,7 @@ Cut and strip the following lengths of wire (tin the tips for easier soldering):
 
 ## Phase 1: Print the Enclosure
  
-Print the plate, fascia and base from the files in `hardware/3d-print/stl/`. Use the settings in the [3D print README](../../hardware/3d-print/README.md).
+Print the plate, fascia and base from the files in `hardware/3d-print/stl/`. Use the settings in the [3D print README](../../hardware/3d-print/).
 - Ensure to remove all of the support material from parts.
 - **[CO₂+O₂ only]** there are some difficult to remove supports in the channel of the fascia wherer the SEN0322 cables are routed.
 
