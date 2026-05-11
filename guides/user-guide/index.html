@@ -1702,39 +1702,51 @@
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>Windows/Linux laptop ──►   (GasMonitor WiFi)
 <a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>(Minir-5 + K30 1%)
 </code></pre></div>
-<p><strong>Each ESP32 sensor unit:</strong>
-- Measures CO₂ every 1–60 seconds (configurable)
-- Optionally measures O₂ (combined units only)
-- Displays live readings on a 1.47" touchscreen
-- Logs data to an onboard SD card (monthly CSV files, indefinite retention)
-- Hosts its own web interface at <code>192.168.4.1</code> when you connect to its hotspot
-- Pushes data to the Raspberry Pi for central monitoring</p>
-<p><strong>The Raspberry Pi hub:</strong>
-- Broadcasts the <code>GasMonitor</code> WiFi network
-- Receives data from all sensors
-- Forwards to Grafana Cloud (14-day retention)
-- Provides automatic time sync to sensors on connection</p>
-<p><strong>The laptop (mixing bottle monitors only):</strong>
-- Reads the Minir-5 (orange bottle, 1–5% CO₂) and K30 1% (clear bottle, ambient CO₂) via USB
-- Pushes readings to the Pi via GasMonitor WiFi
-- Displays the Grafana dashboard full-screen for room-level monitoring</p>
+<p><strong>Each ESP32 sensor unit:</strong></p>
+<ul>
+<li>Measures CO₂ every 1–60 seconds (configurable)</li>
+<li>Optionally measures O₂ (combined units only)</li>
+<li>Displays live readings on a 1.47" touchscreen</li>
+<li>Logs data to an onboard SD card (monthly CSV files, indefinite retention)</li>
+<li>Hosts its own web interface at <code>192.168.4.1</code> when you connect to its hotspot</li>
+<li>Pushes data to the Raspberry Pi for central monitoring</li>
+</ul>
+<p><strong>The Raspberry Pi hub:</strong></p>
+<ul>
+<li>Broadcasts the <code>GasMonitor</code> WiFi network</li>
+<li>Receives data from all sensors</li>
+<li>Forwards to Grafana Cloud (14-day retention)</li>
+<li>Provides automatic time sync to sensors on connection</li>
+</ul>
+<p><strong>The laptop (mixing bottle monitors only):</strong></p>
+<ul>
+<li>Reads the Minir-5 (orange bottle, 1–5% CO₂) and K30 1% (clear bottle, ambient CO₂) via USB</li>
+<li>Pushes readings to the Pi via GasMonitor WiFi</li>
+<li>Displays the Grafana dashboard full-screen for room-level monitoring</li>
+</ul>
 <hr />
 <h2 id="2-the-grafana-dashboard">2. The Grafana Dashboard<a class="headerlink" href="#2-the-grafana-dashboard" title="Permanent link">&para;</a></h2>
 <h3 id="accessing-the-dashboard">Accessing the dashboard<a class="headerlink" href="#accessing-the-dashboard" title="Permanent link">&para;</a></h3>
 <p><strong>In the growth room:</strong> The laptop displays the dashboard full-screen at all times. No login required.</p>
-<p><strong>From your own device:</strong>
-- Open the dashboard URL (ask the lab manager for the link)
-- Must be on the university network, university WiFi, or VPN</p>
+<p><strong>From your own device:</strong></p>
+<ul>
+<li>Open the dashboard URL (ask the lab manager for the link)</li>
+<li>Must be on the university network, university WiFi, or VPN</li>
+</ul>
 <p><strong>As a home screen app (recommended):</strong></p>
-<p><em>Chrome (desktop or Android):</em>
-1. Open the dashboard URL in Chrome
-2. Click the three-dot menu → <strong>Cast, save and share</strong> → <strong>Install as app</strong>
-3. Click <strong>Install</strong> — the dashboard appears as an app icon</p>
-<p><em>Safari (iPhone / iPad):</em>
-1. Open the dashboard URL in Safari
-2. Tap the <strong>Share</strong> button (square with arrow)
-3. Tap <strong>Add to Home Screen</strong> → <strong>Add</strong>
-4. Opens as a full-screen app without browser toolbars</p>
+<p><em>Chrome (desktop or Android):</em></p>
+<ol>
+<li>Open the dashboard URL in Chrome</li>
+<li>Click the three-dot menu → <strong>Cast, save and share</strong> → <strong>Install as app</strong></li>
+<li>Click <strong>Install</strong> — the dashboard appears as an app icon</li>
+</ol>
+<p><em>Safari (iPhone / iPad):</em></p>
+<ol>
+<li>Open the dashboard URL in Safari</li>
+<li>Tap the <strong>Share</strong> button (square with arrow)</li>
+<li>Tap <strong>Add to Home Screen</strong> → <strong>Add</strong></li>
+<li>Opens as a full-screen app without browser toolbars</li>
+</ol>
 <h3 id="what-the-dashboard-shows">What the dashboard shows<a class="headerlink" href="#what-the-dashboard-shows" title="Permanent link">&para;</a></h3>
 <ul>
 <li>All sensors displayed as separate panels</li>
@@ -1803,11 +1815,13 @@
 <p><strong>Phone users:</strong> disable mobile data if the page doesn't load — your phone may be using mobile data instead of the sensor WiFi.</p>
 </blockquote>
 <h3 id="reading-view">Reading view<a class="headerlink" href="#reading-view" title="Permanent link">&para;</a></h3>
-<p>The main page shows:
-- Live CO₂ reading in ppm with a trend arrow (▴ rising / ▾ falling / · stable)
-- Live O₂ reading in % with trend arrow (combined units only)
-- Last calibration date and type
-- A graph of recent readings for the configured window</p>
+<p>The main page shows:</p>
+<ul>
+<li>Live CO₂ reading in ppm with a trend arrow (▴ rising / ▾ falling / · stable)</li>
+<li>Live O₂ reading in % with trend arrow (combined units only)</li>
+<li>Last calibration date and type</li>
+<li>A graph of recent readings for the configured window</li>
+</ul>
 <h3 id="graph">Graph<a class="headerlink" href="#graph" title="Permanent link">&para;</a></h3>
 <p>The graph shows real timestamps (HH:MM) on the x-axis once the device has been time-synced. The time window is configurable in Settings. Tap the graph area on the device touchscreen to switch between CO₂ and O₂ graph pages (combined units).</p>
 <h3 id="settings">Settings<a class="headerlink" href="#settings" title="Permanent link">&para;</a></h3>
@@ -1862,32 +1876,40 @@
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>1. Connect to WiFi: [sensor SSID]
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>2. Open in browser: 192.168.4.1
 </code></pre></div>
-<p>To sync time:
-1. Connect to the sensor's own WiFi hotspot
-2. Open <code>192.168.4.1</code> in a browser
-3. Time syncs automatically from your device — the splash screen clears</p>
+<p>To sync time:</p>
+<ol>
+<li>Connect to the sensor's own WiFi hotspot</li>
+<li>Open <code>192.168.4.1</code> in a browser</li>
+<li>Time syncs automatically from your device — the splash screen clears</li>
+</ol>
 <blockquote>
 <p><strong>Data during unsync period:</strong> Readings are still recorded to a <code>fallback.csv</code> file on the SD card. Once time is synced, this file is automatically backdated and merged into the correct monthly log. No data is lost.</p>
 </blockquote>
 <hr />
 <h2 id="5-calibration">5. Calibration<a class="headerlink" href="#5-calibration" title="Permanent link">&para;</a></h2>
 <h3 id="co2-sensor-k30-when-to-calibrate">CO₂ sensor (K30) — when to calibrate<a class="headerlink" href="#co2-sensor-k30-when-to-calibrate" title="Permanent link">&para;</a></h3>
-<p>Calibrate the K30 if:
-- Readings appear consistently offset from expected values
-- The sensor has been stored for a long period
-- As part of routine quality control</p>
+<p>Calibrate the K30 if:</p>
+<ul>
+<li>Readings appear consistently offset from expected values</li>
+<li>The sensor has been stored for a long period</li>
+<li>As part of routine quality control</li>
+</ul>
 <h3 id="calibration-methods">Calibration methods<a class="headerlink" href="#calibration-methods" title="Permanent link">&para;</a></h3>
 <h4 id="0-ppm-calibration-recommended">0 ppm calibration (recommended)<a class="headerlink" href="#0-ppm-calibration-recommended" title="Permanent link">&para;</a></h4>
 <p>The most reliable method. Expose the sensor to a gas containing 0 ppm CO₂ and calibrate to zero.</p>
-<p><strong>Suitable gas sources available in the growth room:</strong>
-- Pure nitrogen (N₂)
-- 21% O₂ / 79% N₂ (0 ppm CO₂) gas mix plumbed into the growth room</p>
-<p><strong>Procedure:</strong>
-1. Connect the sensor to N₂ or the zero gas mix
-2. Wait for the reading to stabilise — at least 2–3 minutes
-3. Connect to the sensor's web interface and click <strong>Calibrate → 0 ppm</strong>
-4. Confirm in the dialog
-5. Wait for calibration to complete (~10 seconds)</p>
+<p><strong>Suitable gas sources available in the growth room:</strong></p>
+<ul>
+<li>Pure nitrogen (N₂)</li>
+<li>21% O₂ / 79% N₂ (0 ppm CO₂) gas mix plumbed into the growth room</li>
+</ul>
+<p><strong>Procedure:</strong></p>
+<ol>
+<li>Connect the sensor to N₂ or the zero gas mix</li>
+<li>Wait for the reading to stabilise — at least 2–3 minutes</li>
+<li>Connect to the sensor's web interface and click <strong>Calibrate → 0 ppm</strong></li>
+<li>Confirm in the dialog</li>
+<li>Wait for calibration to complete (~10 seconds)</li>
+</ol>
 <h4 id="400-ppm-calibration-use-with-caution">400 ppm calibration (use with caution)<a class="headerlink" href="#400-ppm-calibration-use-with-caution" title="Permanent link">&para;</a></h4>
 <blockquote>
 <p>⚠️ <strong>Warning — departmental compressed air line:</strong> The compressed air supply takes outdoor air through desiccation and delivers it at approximately 400 ppm CO₂ on average. However, outdoor CO₂ varies diurnally and with atmospheric conditions, and the compression/desiccation process can shift concentrations. <strong>The actual concentration at any given moment may be ±100 ppm from 400 ppm.</strong> Do not use this supply for 400 ppm calibration without first verifying the concentration independently.</p>
