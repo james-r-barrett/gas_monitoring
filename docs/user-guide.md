@@ -209,6 +209,7 @@ The most reliable method. Expose the sensor to a gas containing 0 ppm CO₂ and 
 > ⚠️ **Warning — departmental compressed air line:** The compressed air supply takes outdoor air through desiccation and delivers it at approximately 400 ppm CO₂ on average. However, outdoor CO₂ varies diurnally and with atmospheric conditions, and the compression/desiccation process can shift concentrations. **The actual concentration at any given moment may be ±100 ppm from 400 ppm.** Do not use this supply for 400 ppm calibration without first verifying the concentration independently.
 
 **Preferred method — outdoor calibration:**
+
 1. Power the sensor from a USB battery pack or laptop
 2. Take the sensor outdoors, away from building exhausts and busy roads
 3. Allow 5 minutes for the reading to stabilise
@@ -222,6 +223,7 @@ After any calibration, allow 2–3 minutes for the reading to fully stabilise, t
 ### O₂ sensor (SEN0322) — combined units only
 
 The O₂ sensor does not require calibration via the web interface. If recalibration is needed:
+
 1. Take the sensor outdoors to clean air (20.9% O₂)
 2. Hold the **physical button on the back of the SEN0322 board** until the reading stabilises at ~20.9%
 
