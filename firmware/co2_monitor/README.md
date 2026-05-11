@@ -44,7 +44,7 @@ Two calibration points are supported:
 - **0 ppm** — using pure N₂ or a certified 0 ppm CO₂ / 21% O₂ / 79% N₂ mix
 - **400 ppm** — using outdoor ambient air (preferred) or a certified reference gas
 
-See the [calibration documentation](../../docs/user-guide.md#6-calibration) for full procedure including the warning about using the departmental compressed air line.
+See the [calibration documentation](/docs/user-guide.md) for full procedure including the warning about using the departmental compressed air line.
 
 ---
 

@@ -1,6 +1,6 @@
 # User Guide
 
-This guide covers day-to-day operation of the gas monitoring system for lab members. For build and setup instructions see the [assembly guide](assembly/README.md) and [firmware README](../firmware/README.md).
+This guide covers day-to-day operation of the gas monitoring system for lab members. For build and setup instructions see the assembly guide and [firmware README](../firmware/README.md).
 
 ---
 
@@ -218,7 +218,7 @@ Under normal laboratory conditions O₂ recalibration is rarely necessary. The s
 
 ### Mixing bottle analysers (Minir-5 and K30 1%) — experienced users only
 
-These sensors are calibrated using dedicated Python GUI tools on the laptop. See the [laptop bridge README](../laptop-bridge/README.md) for full instructions. The GasLab software is no longer used.
+These sensors are calibrated using dedicated Python GUI tools on the laptop. See the laptop bridge README for full instructions. The GasLab software is no longer used.
 
 **Important:** Stop the relevant pusher script before running the calibration tool, and restart it afterwards.
 
