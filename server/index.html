@@ -825,6 +825,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#disable-ipv4-forwarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disable IPv4 forwarding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#install-packages" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1228,6 +1239,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#disable-ipv4-forwarding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Disable IPv4 forwarding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#install-packages" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1460,10 +1482,12 @@
 <hr />
 <h2 id="os-setup">OS Setup<a class="headerlink" href="#os-setup" title="Permanent link">&para;</a></h2>
 <p>Flash <strong>Raspberry Pi OS Lite (64-bit)</strong> using <a href="https://www.raspberrypi.com/software/">Raspberry Pi Imager</a>.</p>
-<p>In the Imager settings before flashing:
-- Hostname: <code>gasmonitor.local</code>
-- Enable SSH
-- Set username and password</p>
+<p>In the Imager settings before flashing:</p>
+<ul>
+<li>Hostname: <code>gasmonitor.local</code></li>
+<li>Enable SSH</li>
+<li>Set username and password</li>
+</ul>
 <p>Boot the Pi and SSH in:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>ssh<span class="w"> </span>pi@gasmonitor.local
 </code></pre></div></p>
@@ -1473,121 +1497,141 @@
 <hr />
 <h2 id="wifi-access-point-setup">WiFi Access Point Setup<a class="headerlink" href="#wifi-access-point-setup" title="Permanent link">&para;</a></h2>
 <p>The Pi broadcasts <code>GasMonitor</code> on its wireless interface while using ethernet for university network connectivity.</p>
+<blockquote>
+<p>⚠️ <strong>For most university networks it is not permitted to operate the Pi as an access point to the university. IPv4 forwarding must be disabled.</strong></p>
+</blockquote>
+<h3 id="disable-ipv4-forwarding">Disable IPv4 forwarding<a class="headerlink" href="#disable-ipv4-forwarding" title="Permanent link">&para;</a></h3>
+<p>Disable immediately:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>sysctl<span class="w"> </span>-w<span class="w"> </span>net.ipv4.ip_forward<span class="o">=</span><span class="m">0</span>
+</code></pre></div>
+Make persistent:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/sysctl.conf
+</code></pre></div>
+Add:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>net.ipv4.ip_forward=0
+</code></pre></div>
+Apply:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo sysctl -p
+</code></pre></div></p>
 <h3 id="install-packages">Install packages<a class="headerlink" href="#install-packages" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>hostapd<span class="w"> </span>dnsmasq
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>hostapd<span class="w"> </span>dnsmasq
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>hostapd<span class="w"> </span>dnsmasq
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>hostapd<span class="w"> </span>dnsmasq
 </code></pre></div>
 <h3 id="static-ip-for-wlan0">Static IP for wlan0<a class="headerlink" href="#static-ip-for-wlan0" title="Permanent link">&para;</a></h3>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/dhcpcd.conf
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/dhcpcd.conf
 </code></pre></div>
 Add at the bottom:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>interface wlan0
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    static ip_address=192.168.50.1/24
-<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    nohook wpa_supplicant
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>interface wlan0
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    static ip_address=192.168.50.1/24
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    nohook wpa_supplicant
 </code></pre></div></p>
 <h3 id="dhcp-server-dnsmasq">DHCP server (dnsmasq)<a class="headerlink" href="#dhcp-server-dnsmasq" title="Permanent link">&para;</a></h3>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo<span class="w"> </span>mv<span class="w"> </span>/etc/dnsmasq.conf<span class="w"> </span>/etc/dnsmasq.conf.orig
-<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/dnsmasq.conf
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>sudo<span class="w"> </span>mv<span class="w"> </span>/etc/dnsmasq.conf<span class="w"> </span>/etc/dnsmasq.conf.orig
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/dnsmasq.conf
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>interface=wlan0
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>dhcp-range=192.168.50.10,192.168.50.50,255.255.255.0,24h
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>domain=local
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>address=/gasmonitor.local/192.168.50.1
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>interface=wlan0
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>dhcp-range=192.168.50.10,192.168.50.50,255.255.255.0,24h
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>domain=local
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>address=/gasmonitor.local/192.168.50.1
 </code></pre></div></p>
 <h3 id="access-point-hostapd">Access point (hostapd)<a class="headerlink" href="#access-point-hostapd" title="Permanent link">&para;</a></h3>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/hostapd/hostapd.conf
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/hostapd/hostapd.conf
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>interface=wlan0
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>driver=nl80211
-<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>ssid=GasMonitor
-<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>hw_mode=g
-<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>channel=7
-<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>wpa=2
-<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>wpa_passphrase=your set password here
-<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>wpa_key_mgmt=WPA-PSK
-<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>rsn_pairwise=CCMP
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>interface=wlan0
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>driver=nl80211
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>ssid=GasMonitor
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>hw_mode=g
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>channel=7
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>wpa=2
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>wpa_passphrase=your set password here
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>wpa_key_mgmt=WPA-PSK
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>rsn_pairwise=CCMP
 </code></pre></div></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/default/hostapd
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="c1"># Change: DAEMON_CONF=&quot;&quot; → DAEMON_CONF=&quot;/etc/hostapd/hostapd.conf&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/default/hostapd
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="c1"># Change: DAEMON_CONF=&quot;&quot; → DAEMON_CONF=&quot;/etc/hostapd/hostapd.conf&quot;</span>
 </code></pre></div>
 <h3 id="enable-and-reboot">Enable and reboot<a class="headerlink" href="#enable-and-reboot" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>unmask<span class="w"> </span>hostapd
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>hostapd<span class="w"> </span>dnsmasq
-<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>sudo<span class="w"> </span>reboot
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>unmask<span class="w"> </span>hostapd
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>hostapd<span class="w"> </span>dnsmasq
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>sudo<span class="w"> </span>reboot
 </code></pre></div>
 <p>After reboot, <code>GasMonitor</code> WiFi should be visible. Connect your laptop to it and verify SSH still works at <code>192.168.50.1</code>.</p>
 <hr />
 <h2 id="influxdb">InfluxDB<a class="headerlink" href="#influxdb" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>wget<span class="w"> </span>-q<span class="w"> </span>https://repos.influxdata.com/influxdata-archive_compat.key
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sha256sum<span class="w"> </span>-c
-<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>cat<span class="w"> </span>influxdata-archive_compat.key<span class="w"> </span><span class="p">|</span><span class="w"> </span>gpg<span class="w"> </span>--dearmor<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg<span class="w"> </span>&gt;<span class="w"> </span>/dev/null
-<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/sources.list.d/influxdata.list
-<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>influxdb2
-<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>influxdb
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>wget<span class="w"> </span>-q<span class="w"> </span>https://repos.influxdata.com/influxdata-archive_compat.key
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;393e8779c89ac8d958f81f942f9ad7fb82a25e133faddaf92e15b16e6ac9ce4c influxdata-archive_compat.key&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sha256sum<span class="w"> </span>-c
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>cat<span class="w"> </span>influxdata-archive_compat.key<span class="w"> </span><span class="p">|</span><span class="w"> </span>gpg<span class="w"> </span>--dearmor<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg<span class="w"> </span>&gt;<span class="w"> </span>/dev/null
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;deb [signed-by=/etc/apt/trusted.gpg.d/influxdata-archive_compat.gpg] https://repos.influxdata.com/debian stable main&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/sources.list.d/influxdata.list
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>influxdb2
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>influxdb
 </code></pre></div>
-<p>Open <code>http://192.168.50.1:8086</code> in a browser connected to <code>GasMonitor</code> WiFi and complete the setup wizard:
-- Organisation: <code>lab</code>
-- Bucket: <code>sensors</code>
-- Generate an <strong>All Access API token</strong> and save it — you'll need it below</p>
+<p>Open <code>http://192.168.50.1:8086</code> in a browser connected to <code>GasMonitor</code> WiFi and complete the setup wizard:</p>
+<ul>
+<li>Organisation: <code>lab</code></li>
+<li>Bucket: <code>sensors</code></li>
+<li>Generate an <strong>All Access API token</strong> and save it — you'll need it below</li>
+</ul>
 <hr />
 <h2 id="flask-receiver">Flask Receiver<a class="headerlink" href="#flask-receiver" title="Permanent link">&para;</a></h2>
 <h3 id="install-dependencies">Install dependencies<a class="headerlink" href="#install-dependencies" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3-flask
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>pip3<span class="w"> </span>install<span class="w"> </span>influxdb-client<span class="w"> </span>requests<span class="w"> </span>--break-system-packages
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3-flask
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>pip3<span class="w"> </span>install<span class="w"> </span>influxdb-client<span class="w"> </span>requests<span class="w"> </span>--break-system-packages
 </code></pre></div>
 <h3 id="install-server-script">Install server script<a class="headerlink" href="#install-server-script" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>mkdir<span class="w"> </span>~/gas_project
-<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>cp<span class="w"> </span>server.py<span class="w"> </span>~/gas_project/
-<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>nano<span class="w"> </span>~/gas_project/server.py
-<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="c1"># Edit: paste your InfluxDB token into LOCAL_TOKEN</span>
-<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="c1"># Edit: paste your Grafana Cloud credentials into CLOUD_USER and CLOUD_TOKEN</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>mkdir<span class="w"> </span>~/gas_project
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>cp<span class="w"> </span>server.py<span class="w"> </span>~/gas_project/
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>nano<span class="w"> </span>~/gas_project/server.py
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="c1"># Edit: paste your InfluxDB token into LOCAL_TOKEN</span>
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="c1"># Edit: paste your Grafana Cloud credentials into CLOUD_USER and CLOUD_TOKEN</span>
 </code></pre></div>
 <h3 id="test">Test<a class="headerlink" href="#test" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>python3<span class="w"> </span>~/gas_project/server.py
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>python3<span class="w"> </span>~/gas_project/server.py
 </code></pre></div>
 <p>From another terminal or device on the <code>GasMonitor</code> network:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://192.168.50.1:5000/sensor-data<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;sensor_id&quot;:&quot;test&quot;,&quot;location&quot;:&quot;test&quot;,&quot;co2&quot;:500}&#39;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://192.168.50.1:5000/sensor-data<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{&quot;sensor_id&quot;:&quot;test&quot;,&quot;location&quot;:&quot;test&quot;,&quot;co2&quot;:500}&#39;</span>
 </code></pre></div></p>
 <p>You should see <code>{"status":"success"}</code>.</p>
 <h3 id="run-as-a-system-service">Run as a system service<a class="headerlink" href="#run-as-a-system-service" title="Permanent link">&para;</a></h3>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/system/gasreceiver.service
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/systemd/system/gasreceiver.service
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">[Unit]</span>
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="na">Description</span><span class="o">=</span><span class="s">Gas Sensor Data Receiver</span>
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="na">After</span><span class="o">=</span><span class="s">network.target influxdb.service</span>
-<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="na">Requires</span><span class="o">=</span><span class="s">influxdb.service</span>
-<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
-<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="k">[Service]</span>
-<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/python3 /home/pi/gas_project/server.py</span>
-<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="na">WorkingDirectory</span><span class="o">=</span><span class="s">/home/pi/gas_project</span>
-<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="na">Restart</span><span class="o">=</span><span class="s">always</span>
-<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="na">RestartSec</span><span class="o">=</span><span class="s">5</span>
-<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="na">User</span><span class="o">=</span><span class="s">pi</span>
-<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>
-<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="k">[Install]</span>
-<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="k">[Unit]</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="na">Description</span><span class="o">=</span><span class="s">Gas Sensor Data Receiver</span>
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="na">After</span><span class="o">=</span><span class="s">network.target influxdb.service</span>
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="na">Requires</span><span class="o">=</span><span class="s">influxdb.service</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="k">[Service]</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/python3 /home/pi/gas_project/server.py</span>
+<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="na">WorkingDirectory</span><span class="o">=</span><span class="s">/home/pi/gas_project</span>
+<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="na">Restart</span><span class="o">=</span><span class="s">always</span>
+<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a><span class="na">RestartSec</span><span class="o">=</span><span class="s">5</span>
+<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a><span class="na">User</span><span class="o">=</span><span class="s">pi</span>
+<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>
+<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a><span class="k">[Install]</span>
+<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a><span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>gasreceiver
-<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>gasreceiver<span class="w"> </span>-f<span class="w">   </span><span class="c1"># watch logs</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>gasreceiver
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>sudo<span class="w"> </span>journalctl<span class="w"> </span>-u<span class="w"> </span>gasreceiver<span class="w"> </span>-f<span class="w">   </span><span class="c1"># watch logs</span>
 </code></pre></div></p>
 <hr />
 <h2 id="grafana">Grafana<a class="headerlink" href="#grafana" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/apt/keyrings/
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>wget<span class="w"> </span>-q<span class="w"> </span>-O<span class="w"> </span>-<span class="w"> </span>https://apt.grafana.com/gpg.key<span class="w"> </span><span class="p">|</span><span class="w"> </span>gpg<span class="w"> </span>--dearmor<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/keyrings/grafana.gpg<span class="w"> </span>&gt;<span class="w"> </span>/dev/null
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/sources.list.d/grafana.list
-<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>grafana
-<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>grafana-server
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>sudo<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span>/etc/apt/keyrings/
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>wget<span class="w"> </span>-q<span class="w"> </span>-O<span class="w"> </span>-<span class="w"> </span>https://apt.grafana.com/gpg.key<span class="w"> </span><span class="p">|</span><span class="w"> </span>gpg<span class="w"> </span>--dearmor<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/keyrings/grafana.gpg<span class="w"> </span>&gt;<span class="w"> </span>/dev/null
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://apt.grafana.com stable main&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/sources.list.d/grafana.list
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>grafana
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>--now<span class="w"> </span>grafana-server
 </code></pre></div>
 <p>Access local Grafana at <code>http://192.168.50.1:3000</code> (default login: <code>admin</code> / <code>admin</code>).</p>
-<p>Add InfluxDB as a data source:
-- Type: <strong>InfluxDB</strong>
-- Query language: <strong>Flux</strong>
-- URL: <code>http://localhost:8086</code>
-- Organisation: <code>lab</code>
-- Token: paste your InfluxDB token
-- Default bucket: <code>sensors</code></p>
+<p>Add InfluxDB as a data source:</p>
+<ul>
+<li>Type: <strong>InfluxDB</strong></li>
+<li>Query language: <strong>Flux</strong></li>
+<li>URL: <code>http://localhost:8086</code></li>
+<li>Organisation: <code>lab</code></li>
+<li>Token: paste your InfluxDB token</li>
+<li>Default bucket: <code>sensors</code></li>
+</ul>
 <hr />
 <h2 id="grafana-cloud-optional">Grafana Cloud (optional)<a class="headerlink" href="#grafana-cloud-optional" title="Permanent link">&para;</a></h2>
 <p>For remote access without a VPN, the server script forwards readings to Grafana Cloud using the InfluxDB line protocol over HTTPS. Configure <code>CLOUD_URL</code>, <code>CLOUD_USER</code>, and <code>CLOUD_TOKEN</code> in <code>server.py</code> with credentials from your Grafana Cloud stack.</p>
@@ -1626,14 +1670,14 @@ Add at the bottom:
 </tbody>
 </table>
 <h3 id="post-sensor-data-payload">POST /sensor-data payload<a class="headerlink" href="#post-sensor-data-payload" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="p">{</span>
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="nt">&quot;sensor_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;chamber1&quot;</span><span class="p">,</span>
-<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Growth Room A&quot;</span><span class="p">,</span>
-<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">  </span><span class="nt">&quot;co2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">850</span><span class="p">,</span>
-<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="w">  </span><span class="nt">&quot;o2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">20.91</span><span class="p">,</span>
-<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="w">  </span><span class="nt">&quot;uptime&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3600</span><span class="p">,</span>
-<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1746540130</span>
-<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="p">}</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="p">{</span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="w">  </span><span class="nt">&quot;sensor_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;chamber1&quot;</span><span class="p">,</span>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="w">  </span><span class="nt">&quot;location&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Growth Room A&quot;</span><span class="p">,</span>
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a><span class="w">  </span><span class="nt">&quot;co2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">850</span><span class="p">,</span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a><span class="w">  </span><span class="nt">&quot;o2&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">20.91</span><span class="p">,</span>
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a><span class="w">  </span><span class="nt">&quot;uptime&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3600</span><span class="p">,</span>
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a><span class="w">  </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1746540130</span>
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a><span class="p">}</span>
 </code></pre></div>
 <p>Fields <code>o2</code>, <code>uptime</code>, and <code>timestamp</code> are optional. If <code>timestamp</code> is provided and valid (&gt;1700000000), it is used as the InfluxDB write time; otherwise the Pi's system time is used.</p>
 <hr />

@@ -1137,9 +1137,11 @@
 - Other: &lt;20 mA</p>
 <p>A quality USB-C supply rated at ≥2A is recommended. Cheap supplies cause intermittent brown-outs that can corrupt SD card writes.</p>
 <h2 id="i2c-bus">I²C Bus<a class="headerlink" href="#i2c-bus" title="Permanent link">&para;</a></h2>
-<p>The I²C bus (SDA GPIO42, SCL GPIO41) is shared between:
-- AXS5106L touch controller (address 0x63)
-- SEN0322 O₂ sensor (address 0x73, set by dial switch position 3) — CO₂+O₂ variant only</p>
+<p>The I²C bus (SDA GPIO42, SCL GPIO41) is shared between:</p>
+<ul>
+<li>AXS5106L touch controller (address 0x63)</li>
+<li>SEN0322 O₂ sensor (address 0x73, set by dial switch position 3) — CO₂+O₂ variant only</li>
+</ul>
 <p>There are no address conflicts between these devices.</p>
 
 
