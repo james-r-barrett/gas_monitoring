@@ -12,8 +12,8 @@ theme:
   name: material
   palette:
     - scheme: default
-      primary: teal
-      accent: teal
+      primary: deep orange
+      accent: deep orange
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
