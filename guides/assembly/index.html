@@ -928,17 +928,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#before-you-start-read-through-the-complete-guide-before-beginning-have-the-bom-and-schematic-open-alongside-this-guide" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        &gt; Before You Start: Read through the complete guide before beginning. Have the BOM and schematic open alongside this guide.
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#materials-prep" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1169,17 +1158,6 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#before-you-start-read-through-the-complete-guide-before-beginning-have-the-bom-and-schematic-open-alongside-this-guide" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        &gt; Before You Start: Read through the complete guide before beginning. Have the BOM and schematic open alongside this guide.
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#materials-prep" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1390,16 +1368,21 @@
 <h1 id="assembly-guide">Assembly Guide<a class="headerlink" href="#assembly-guide" title="Permanent link">&para;</a></h1>
 <p>This guide details the physical assembly and wiring of the environmental gas monitor. Please ensure all 3D-printed parts are clean and free of support material before beginning. </p>
 <p>This guide covers both variants. Steps unique to the CO₂ + O₂ variant are marked <strong>[CO₂+O₂ only]</strong>.</p>
-<h2 id="before-you-start-read-through-the-complete-guide-before-beginning-have-the-bom-and-schematic-open-alongside-this-guide">&gt; <strong>Before You Start:</strong> Read through the complete guide before beginning. Have the <a href="../../hardware/bom/">BOM</a> and <a href="../../hardware/schematics/">schematic</a> open alongside this guide.<a class="headerlink" href="#before-you-start-read-through-the-complete-guide-before-beginning-have-the-bom-and-schematic-open-alongside-this-guide" title="Permanent link">&para;</a></h2>
+<div class="admonition note">
+<p class="admonition-title">Before You Start</p>
+<p>Read through the complete guide before beginning. Have the <a href="../../hardware/bom/">BOM</a> and <a href="../../hardware/schematics/">schematic</a> open alongside this guide.---</p>
+</div>
 <h2 id="materials-prep">Materials &amp; Prep<a class="headerlink" href="#materials-prep" title="Permanent link">&para;</a></h2>
-<p><strong>Required Tools:</strong>
-* Soldering iron &amp; solder (fine tip recommended)
-* Wire strippers/cutters
-* M2 x 8mm screws (x4)
-* Small Phillips head screwdriver
-* Small flathead screwdriver (for O₂ sensor I²C dial)</p>
-<p><strong>Wire Preparation:</strong>
-Cut and strip the following lengths of wire (tin the tips for easier soldering):
+<p><strong>Required Tools:</strong></p>
+<ul>
+<li>Soldering iron &amp; solder (fine tip recommended)</li>
+<li>Wire strippers/cutters</li>
+<li>M2 x 8mm screws (x4)</li>
+<li>Small Phillips head screwdriver</li>
+<li>Small flathead screwdriver (for O₂ sensor I²C dial)</li>
+</ul>
+<p><strong>Wire Preparation:</strong></p>
+<p>Cut and strip the following lengths of wire (tin the tips for easier soldering):
 * <strong>8.0 cm (x3):</strong> For K30 GND, PWR, and TXD.
 * <strong>5.5 cm (x1):</strong> For K30 RXD.
 * <strong>1.5 cm (x2):</strong> For Logic Shifter LV-side data lines.
@@ -1407,9 +1390,11 @@ Cut and strip the following lengths of wire (tin the tips for easier soldering):
 * <strong>~2.0 cm (x1):</strong> For Logic Shifter HV power line.
 * <strong>[CO₂+O₂ only]:</strong> Four standard Dupont jumper wires for the SEN0322 (usually included with the connector on the device).</p>
 <h2 id="phase-1-print-the-enclosure">Phase 1: Print the Enclosure<a class="headerlink" href="#phase-1-print-the-enclosure" title="Permanent link">&para;</a></h2>
-<p>Print the plate, fascia and base from the files in <code>hardware/3d-print/stl/</code>. Use the settings in the <a href="../../hardware/3d-print/">3D print README</a>.
-- Ensure to remove all of the support material from parts.
-- <strong>[CO₂+O₂ only]</strong> there are some difficult to remove supports in the channel of the fascia wherer the SEN0322 cables are routed.</p>
+<p>Print the plate, fascia and base from the files in <code>hardware/3d-print/stl/</code>. Use the settings in the <a href="../../hardware/3d-print/">3D print README</a>.</p>
+<ul>
+<li>Ensure to remove all of the support material from parts.</li>
+<li><strong>[CO₂+O₂ only]</strong> there are some difficult to remove supports in the channel of the fascia wherer the SEN0322 cables are routed.</li>
+</ul>
 <p><strong>[CO₂+O₂ only]</strong> Use the <code>co2_o2/</code> STL files, which includes the SEN0322 sensor port.</p>
 <h2 id="phase-2-soldering-component-prep">Phase 2: Soldering &amp; Component Prep<a class="headerlink" href="#phase-2-soldering-component-prep" title="Permanent link">&para;</a></h2>
 <p><em>(Please refer to the included schematics for visual pinout confirmation. We recommend color-coding your wires: Red for 5V, Black for GND, and distinct colors for data lines).</em></p>
@@ -1420,30 +1405,38 @@ Cut and strip the following lengths of wire (tin the tips for easier soldering):
 </ol>
 <p><img src="images/k30_wiring.jpg" alt="K30 Sensor Wiring" width="300"></p>
 <h3 id="2-connect-to-the-logic-shifter">2. Connect to the Logic Shifter<a class="headerlink" href="#2-connect-to-the-logic-shifter" title="Permanent link">&para;</a></h3>
-<p><em>The Logic Shifter protects the 3.3V ESP32 from the 5V signals of the K30.</em>
-1. Solder the <strong>5.5 cm RXD</strong> wire coming from the K30 to the <strong>H3</strong> channel on the logic shifter.
-1. Solder a <strong>1.5 cm</strong> wire to the <strong>L3</strong> pad.</p>
+<p><em>The Logic Shifter protects the 3.3V ESP32 from the 5V signals of the K30.</em></p>
+<ol>
+<li>Solder the <strong>5.5 cm RXD</strong> wire coming from the K30 to the <strong>H3</strong> channel on the logic shifter.</li>
+<li>Solder a <strong>1.5 cm</strong> wire to the <strong>L3</strong> pad.</li>
+</ol>
 <p><img src="images/logic_shifter_wiring.jpeg" alt="Logic Shifter Wiring" width="300"></p>
 <h3 id="3-wire-the-esp32-s3-main-brain">3. Wire the ESP32-S3 (Main Brain)<a class="headerlink" href="#3-wire-the-esp32-s3-main-brain" title="Permanent link">&para;</a></h3>
-<p>Now, connect everything back to the ESP32 microcontroller:
-1. <strong>Power:</strong> Solder the K30 <strong>PWR</strong> wire to the ESP32 <strong>VBUS (5V)</strong> pin.
-2. <strong>Ground:</strong> Solder the K30 <strong>GND</strong> wire to the ESP32 <strong>GND</strong> pin. 
-3. <strong>Data (TX to K30):</strong> Solder the <strong>1.5 cm L3</strong> wire to the ESP32 <strong>RXD</strong> pin.
-4. <strong>Data (RX from K30):</strong> Solder the <strong>8 cm</strong> wire to the ESP32 <strong>TXD</strong> pin.</p>
+<p>Now, connect everything back to the ESP32 microcontroller:</p>
+<ol>
+<li><strong>Power:</strong> Solder the K30 <strong>PWR</strong> wire to the ESP32 <strong>VBUS (5V)</strong> pin.</li>
+<li><strong>Ground:</strong> Solder the K30 <strong>GND</strong> wire to the ESP32 <strong>GND</strong> pin. </li>
+<li><strong>Data (TX to K30):</strong> Solder the <strong>1.5 cm L3</strong> wire to the ESP32 <strong>RXD</strong> pin.</li>
+<li><strong>Data (RX from K30):</strong> Solder the <strong>8 cm</strong> wire to the ESP32 <strong>TXD</strong> pin.</li>
+</ol>
 <p><img src="images/esp32_wiring.jpeg" alt="ESP32 Wiring" width="300"></p>
 <h3 id="4-power-the-logic-shifter">4. Power the Logic Shifter<a class="headerlink" href="#4-power-the-logic-shifter" title="Permanent link">&para;</a></h3>
-<p>The logic shifter needs reference voltages to know how to translate the signals.
-1. Solder the <strong>~2 cm</strong> wire from the ESP32 <strong>VBUS (5V)</strong> pin to the <strong>HV</strong> pad on the logic shifter.
-2. Solder the <strong>~4 cm</strong> wire from the ESP32 <strong>3V3 (3.3V)</strong> pin to the <strong>LV</strong> pad on the logic shifter.</p>
+<p>The logic shifter needs reference voltages to know how to translate the signals.</p>
+<ol>
+<li>Solder the <strong>~2 cm</strong> wire from the ESP32 <strong>VBUS (5V)</strong> pin to the <strong>HV</strong> pad on the logic shifter.</li>
+<li>Solder the <strong>~4 cm</strong> wire from the ESP32 <strong>3V3 (3.3V)</strong> pin to the <strong>LV</strong> pad on the logic shifter.</li>
+</ol>
 <p><img src="images/logic_power_wiring.jpeg" alt="Logic Shifter Power Wiring" width="300"></p>
 <h3 id="5-co2o2-only-prepare-the-sen0322-o2-sensor">5. [CO₂+O₂ only] Prepare the SEN0322 O₂ Sensor<a class="headerlink" href="#5-co2o2-only-prepare-the-sen0322-o2-sensor" title="Permanent link">&para;</a></h3>
-<p>The SEN0322 comes ready to use but requires configuration:
-1. Set the I²C address dial to <strong>position 3</strong> (address <code>0x73</code>) to avoid conflicting with the touchscreen controller. The dial is on the top face of the board; use a small flathead screwdriver.
-2. Connect the four wires:
-   * <strong>VCC</strong> → ESP32 <strong>3V3 (3.3V)</strong>
-   * <strong>GND</strong> → Common ground.
-   * <strong>SDA</strong> → ESP32 <strong>GPIO42</strong>.
-   * <strong>SCL</strong> → ESP32 <strong>GPIO41</strong>.</p>
+<p>The SEN0322 comes ready to use but requires configuration:</p>
+<ol>
+<li>Set the I²C address dial to <strong>position 3</strong> (address <code>0x73</code>) to avoid conflicting with the touchscreen controller. The dial is on the top face of the board; use a small flathead screwdriver.</li>
+<li>Connect the four wires:</li>
+<li><strong>VCC</strong> → ESP32 <strong>3V3 (3.3V)</strong></li>
+<li><strong>GND</strong> → Common ground.</li>
+<li><strong>SDA</strong> → ESP32 <strong>GPIO42</strong>.</li>
+<li><strong>SCL</strong> → ESP32 <strong>GPIO41</strong>.</li>
+</ol>
 <p><img src="images/o2_wiring.jpeg" alt="Oxygen Sensor Wiring" width="300"></p>
 <hr />
 <h2 id="phase-3-bench-test-before-assembly">Phase 3: Bench Test Before Assembly<a class="headerlink" href="#phase-3-bench-test-before-assembly" title="Permanent link">&para;</a></h2>
@@ -1516,9 +1509,11 @@ Cut and strip the following lengths of wire (tin the tips for easier soldering):
 </ul>
 <p><img src="images/final_assembly.jpeg" alt="Final Assembly" width="300"></p>
 <h3 id="4-attach-the-base">4. Attach the Base<a class="headerlink" href="#4-attach-the-base" title="Permanent link">&para;</a></h3>
-<p>Choose your preferred finish for the bottom of the device:
-* <strong>The Base:</strong> Attach this push-fit part if you want the device to have a stand-like appearance.
-* <strong>The Insert:</strong> Use this part if you prefer a flush, flat-bottom, low-profile finish.</p>
+<p>Choose your preferred finish for the bottom of the device:</p>
+<ul>
+<li><strong>The Base:</strong> Attach this push-fit part if you want the device to have a stand-like appearance.</li>
+<li><strong>The Insert:</strong> Use this part if you prefer a flush, flat-bottom, low-profile finish.</li>
+</ul>
 <p><img src="images/finished.jpeg" alt="Finished Assembly" width="300"></p>
 <hr />
 <h2 id="phase-5-final-power-on-configuration">Phase 5: Final Power-on &amp; Configuration<a class="headerlink" href="#phase-5-final-power-on-configuration" title="Permanent link">&para;</a></h2>
