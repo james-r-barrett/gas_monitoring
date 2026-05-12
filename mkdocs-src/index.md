@@ -59,7 +59,7 @@ Key design goals:
 ---
 
 ## System Architecture
-<div style="font-size: 0.75em; overflow-x: auto;">
+<div style="font-size: 1em; overflow-x: auto;">
 ```
 ┌──────────────────────┐
 │   ESP32 sensor unit  │  ──── WiFi (GasMonitor) ────►   ┌─────────────────────┐
