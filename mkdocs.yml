@@ -1,4 +1,4 @@
-site_name: Lab Gas Monitor
+site_name: Canary Gas Monitoring
 site_description: Open-source networked CO₂/O₂ monitoring for laboratory growth chambers
 site_author: James Barrett
 site_url: https://james-r-barrett.github.io/gas_monitoring/
@@ -10,10 +10,12 @@ docs_dir: mkdocs-src
 
 theme:
   name: material
+  favicon: images/icon.svg
+  logo: images/icon.svg
   palette:
     - scheme: default
-      primary: deep orange
-      accent: deep orange
+      primary: yellow
+      accent: yellow
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
@@ -25,6 +27,7 @@ theme:
         name: Switch to light mode
   features:
     - navigation.tabs
+    - navigation.instant
     - navigation.sections
     - navigation.top
     - search.highlight
@@ -64,3 +67,6 @@ markdown_extensions:
   - tables
   - toc:
       permalink: true
+
+extra_css:
+  - stylesheets/extra.css

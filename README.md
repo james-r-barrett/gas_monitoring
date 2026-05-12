@@ -1,4 +1,4 @@
-# Lab Gas Monitor
+# Canary Gas Monitoring
 
 An open-source, networked gas monitoring system for laboratory growth chambers, built around the ESP32-S3 microcontroller. Measures CO₂ (and optionally O₂) continuously, logs data to an onboard SD card, and pushes readings to a central Grafana dashboard via a Raspberry Pi hub.
 
