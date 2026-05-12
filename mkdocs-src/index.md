@@ -44,7 +44,7 @@ Continuously measures CO₂ (and optionally O₂), logs data locally to SD stora
      rel="noopener noreferrer"
      class="hero-btn grafana-btn">
 
-    Open Live Dashboard ↗
+    Open Mackinder Dashboard ↗
   </a>
 </div>
 
@@ -114,8 +114,8 @@ Continuously measures CO₂ (and optionally O₂), logs data locally to SD stora
 }
 
 .grafana-btn {
-  background: #e8530a;
-  color: white !important;
+  background: #FFEE1A;
+  color: black !important;
 }
 </style>
 
