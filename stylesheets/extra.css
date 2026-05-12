@@ -1,0 +1,9 @@
+/* Light mode logo */
+[data-md-color-scheme="default"] .md-header__button.md-logo img {
+  content: url("../images/logo-light.svg");
+}
+
+/* Dark mode logo */
+[data-md-color-scheme="slate"] .md-header__button.md-logo img {
+  content: url("../images/logo-light.svg");
+}
