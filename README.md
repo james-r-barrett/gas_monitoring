@@ -78,7 +78,7 @@ gas-monitor/
 
 ## Licence
 
-MIT — see [LICENSE](LICENSE)
+see [LICENSE](LICENSE)
 
 ## Citation
 
